@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_project/feature/details_product/presentation/view/details_product_screen.dart';
@@ -37,7 +38,16 @@ class _CustomOneItemState extends State<CustomOneItem> {
           ),
           leading: CircleAvatar(
             backgroundColor: Colors.transparent,
-            child: Image.network(widget.productModel.image, fit: BoxFit.cover),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: widget.productModel.image,
+              errorWidget: (c, u, e) {
+                return const Icon(Icons.error_outline_rounded);
+              },
+              placeholder: (c, e) {
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
           trailing: IconButton(
             onPressed: () {

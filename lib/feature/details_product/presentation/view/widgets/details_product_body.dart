@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_project/feature/details_product/presentation/view/widgets/show_image_list.dart';
 
+import '../../../../cart/presentation/controller/cart_cubit.dart';
 import '../../../../home/data/model/product_model.dart';
 
 class DetailsProductBody extends StatefulWidget {
@@ -65,6 +67,38 @@ class _DetailsProductBodyState extends State<DetailsProductBody> {
             Text(
               "Price: ${widget.productModel.price} \$",
               style: const TextStyle(fontSize: 20, color: Colors.green),
+            ),
+            Text(
+              "Quantity: ${widget.productModel.quantity}",
+              style: const TextStyle(fontSize: 20),
+            ),
+            Text(
+              "Total Price: ${widget.productModel.totalPrice} \$",
+              style: const TextStyle(fontSize: 20, color: Colors.green),
+            ),
+            GestureDetector(
+              onTap: () {
+                context.read<CartCubit>().addCartCubit(
+                  productId: widget.productModel.id,
+                  quantity: widget.productModel.quantity,
+                );
+                Navigator.pop(context);
+              },
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                margin: const EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Add To Cart",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

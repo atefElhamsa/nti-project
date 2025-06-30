@@ -7,8 +7,19 @@ import 'package:nti_project/feature/home/presentation/view/widgets/custom_succes
 import '../../controller/cubit/product_cubit.dart';
 import '../../controller/cubit/product_state.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  @override
+  void initState() {
+    context.read<ProductCubit>().getDataCubit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

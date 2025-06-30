@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nti_project/feature/home/presentation/view/home_screen.dart';
+import 'package:nti_project/feature/register/presentation/view/register_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: RegisterScreen(),
     );
   }
 }

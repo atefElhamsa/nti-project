@@ -23,9 +23,9 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
     try {
       var data = await favouriteServices.deleteFavourite(id: id);
       emit(DeleteFavouriteSuccess(message: data["message"]));
+      getFavouriteCubit();
     } catch (e) {
       emit(DeleteFavouriteFailure(error: e.toString()));
-      getFavouriteCubit();
     }
   }
 

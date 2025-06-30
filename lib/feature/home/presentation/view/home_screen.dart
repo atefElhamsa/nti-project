@@ -4,6 +4,8 @@ import 'package:nti_project/feature/favourite/presentation/view/favourite_screen
 import 'package:nti_project/feature/home/presentation/controller/cubit/product_cubit.dart';
 import 'package:nti_project/feature/home/presentation/view/widgets/home_body.dart';
 
+import '../../../cart/presentation/view/cart_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -15,7 +17,6 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Products"),
           centerTitle: true,
-          toolbarHeight: 100,
           actions: [
             IconButton(
               onPressed: () {
@@ -27,6 +28,15 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.favorite_outlined, color: Colors.red),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
+                );
+              },
+              icon: const Icon(Icons.add_shopping_cart, color: Colors.green),
             ),
           ],
         ),

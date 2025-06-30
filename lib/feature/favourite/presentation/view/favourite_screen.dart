@@ -21,11 +21,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Favourite"),
-        centerTitle: true,
-        toolbarHeight: 100,
-      ),
+      appBar: AppBar(title: const Text("Favourite"), centerTitle: true),
       body: const FavouriteBody(),
     );
   }
