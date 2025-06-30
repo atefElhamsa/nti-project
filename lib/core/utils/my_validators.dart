@@ -60,8 +60,8 @@ class MyValidators {
     return null;
   }
 
-  static String? genderValidator({String? value}) {
-    if (value!.isEmpty) {
+  static String? genderValidator(String? value) {
+    if (value == null || value.isEmpty) {
       return 'please enter gender';
     }
     return null;
