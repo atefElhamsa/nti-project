@@ -5,6 +5,7 @@ import 'package:nti_project/feature/home/presentation/controller/cubit/product_c
 import 'package:nti_project/feature/home/presentation/view/widgets/home_body.dart';
 
 import '../../../cart/presentation/view/cart_screen.dart';
+import '../../../profile/presentation/view/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,6 +38,17 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               icon: const Icon(Icons.add_shopping_cart, color: Colors.green),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.person, color: Colors.blue),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nti_project/core/cache/cash_helper.dart';
 import 'package:nti_project/feature/register/data/model/response_model.dart';
 
 class AuthServices {
@@ -45,6 +46,7 @@ class AuthServices {
       );
       var data = response.data;
       var model = ResponseModel.fromJson(data);
+      CashHelper.saveData(key: "token", value: model.profileModel.token);
       return model;
     } on DioException catch (e) {
       if (e.response != null) {

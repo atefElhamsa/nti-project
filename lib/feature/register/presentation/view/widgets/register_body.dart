@@ -10,14 +10,7 @@ import 'package:nti_project/feature/register/presentation/view/widgets/fields.da
 import '../../controller/auth_cubit.dart';
 
 class RegisterBody extends StatelessWidget {
-  RegisterBody({super.key});
-
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController nationalIdController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  const RegisterBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,22 +45,8 @@ class RegisterBody extends StatelessWidget {
                 );
               },
             ),
-            Fields(
-              nameController: nameController,
-              emailController: emailController,
-              phoneController: phoneController,
-              nationalIdController: nationalIdController,
-              genderController: genderController,
-              passwordController: passwordController,
-            ),
-            Button(
-              nameController: nameController,
-              emailController: emailController,
-              phoneController: phoneController,
-              nationalIdController: nationalIdController,
-              genderController: genderController,
-              passwordController: passwordController,
-            ),
+            const Fields(),
+            const Button(),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);

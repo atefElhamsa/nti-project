@@ -7,25 +7,11 @@ import '../../controller/auth_cubit.dart';
 import '../../controller/auth_state.dart';
 
 class Button extends StatelessWidget {
-  const Button({
-    super.key,
-    required this.nameController,
-    required this.emailController,
-    required this.phoneController,
-    required this.nationalIdController,
-    required this.genderController,
-    required this.passwordController,
-  });
-  final TextEditingController nameController;
-  final TextEditingController emailController;
-  final TextEditingController phoneController;
-  final TextEditingController nationalIdController;
-  final TextEditingController genderController;
-  final TextEditingController passwordController;
+  const Button({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
           const CustomLoading();
@@ -42,6 +28,7 @@ class Button extends StatelessWidget {
               content: state.responseModel.message,
               color: Colors.green,
             );
+            Navigator.pop(context);
           }
         } else if (state is AddUserFailure) {
           messageSnakeBar(
@@ -51,34 +38,30 @@ class Button extends StatelessWidget {
           );
         }
       },
-      child: GestureDetector(
-        onTap: () {
-          BlocProvider.of<AuthCubit>(context).addUserCubit(
-            name: nameController.text.trim(),
-            email: emailController.text.trim(),
-            phone: phoneController.text.trim(),
-            nationalId: nationalIdController.text.trim(),
-            gender: genderController.text.trim(),
-            password: passwordController.text.trim(),
-            profileImage: context.read<AuthCubit>().profileImage!,
-          );
-        },
-        child: Container(
-          width: double.infinity,
-          height: 50,
-          margin: const EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Center(
-            child: Text(
-              "Register",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          ),
-        ),
-      ),
+      builder: (context, state) {
+        return state is AuthLoading
+            ? const CustomLoading()
+            : GestureDetector(
+                onTap: () {
+                  BlocProvider.of<AuthCubit>(context).addUserCubit();
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  margin: const EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Register",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              );
+      },
     );
   }
 }

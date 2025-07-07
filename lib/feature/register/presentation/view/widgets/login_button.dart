@@ -5,19 +5,14 @@ import 'package:nti_project/feature/register/presentation/controller/auth_state.
 
 import '../../../../../core/shared_widgets/custom_loading.dart';
 import '../../../../favourite/presentation/view/widgets/message_snake_bar.dart';
+import '../../../../home/presentation/view/home_screen.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-    required this.emailController,
-    required this.passwordController,
-  });
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  const LoginButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
           const CustomLoading();
@@ -34,6 +29,10 @@ class LoginButton extends StatelessWidget {
               content: state.responseModel.message,
               color: Colors.green,
             );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
           }
         } else if (state is LoginFailure) {
           messageSnakeBar(
@@ -43,29 +42,30 @@ class LoginButton extends StatelessWidget {
           );
         }
       },
-      child: GestureDetector(
-        onTap: () {
-          BlocProvider.of<AuthCubit>(context).loginCubit(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-          );
-        },
-        child: Container(
-          width: double.infinity,
-          height: 50,
-          margin: const EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: const Center(
-            child: Text(
-              "Login",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          ),
-        ),
-      ),
+      builder: (context, state) {
+        return state is AuthLoading
+            ? const CustomLoading()
+            : GestureDetector(
+                onTap: () {
+                  BlocProvider.of<AuthCubit>(context).loginCubit();
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  margin: const EdgeInsets.only(top: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              );
+      },
     );
   }
 }
