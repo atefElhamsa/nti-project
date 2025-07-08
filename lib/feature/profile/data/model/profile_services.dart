@@ -10,9 +10,18 @@ class ProfileServices {
       data: {"token": CashHelper.getData(key: "token")},
     );
     var data = response.data["user"];
-    print(data);
     var model = ProfileModel.fromJson(data);
-    print(model);
     return model;
+  }
+
+  updateProfile({required String key, required String value}) async {
+    final response = await dio.put(
+      "https://elwekala.onrender.com/user/update",
+      data: {
+        "token": CashHelper.getData(key: "token"),
+        "password": "Atef332004",
+        key: value,
+      },
+    );
   }
 }
