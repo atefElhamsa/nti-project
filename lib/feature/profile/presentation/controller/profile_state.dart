@@ -8,6 +8,16 @@ final class EditState extends ProfileState {}
 
 final class ProfileLoading extends ProfileState {}
 
+final class DeleteProfileSuccess extends ProfileState {
+  final String message;
+  DeleteProfileSuccess({required this.message});
+}
+
+final class DeleteProfileFailure extends ProfileState {
+  final String message;
+  DeleteProfileFailure({required this.message});
+}
+
 final class GetProfileFailure extends ProfileState {
   final String message;
   GetProfileFailure({required this.message});

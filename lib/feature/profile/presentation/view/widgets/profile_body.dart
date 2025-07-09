@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nti_project/core/shared_widgets/custom_failure.dart';
 import 'package:nti_project/core/shared_widgets/custom_loading.dart';
 import 'package:nti_project/feature/profile/presentation/controller/profile_cubit.dart';
-import 'package:nti_project/feature/profile/presentation/view/widgets/is_edit_false_widget.dart';
-import 'package:nti_project/feature/profile/presentation/view/widgets/is_edit_true_widget.dart';
+import 'package:nti_project/feature/profile/presentation/view/widgets/information_and_edit_profile_data.dart';
 
 import '../../controller/profile_state.dart';
 
@@ -42,23 +41,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   backgroundImage: NetworkImage(profileModel.profileImage),
                 ),
                 const SizedBox(height: 20),
-                cubit.isEdit
-                    ? IsEditTrueWidget(
-                        cubit: cubit,
-                        name: state.profileModel.name,
-                        email: state.profileModel.email,
-                        phone: state.profileModel.phone,
-                        nationalId: state.profileModel.nationalId,
-                        gender: state.profileModel.gender,
-                      )
-                    : IsEditFalseWidget(
-                        cubit: cubit,
-                        hintName: state.profileModel.name,
-                        hintEmail: state.profileModel.email,
-                        hintPhone: state.profileModel.phone,
-                        hintNationalId: state.profileModel.nationalId,
-                        hintGender: state.profileModel.gender,
-                      ),
+                InformationAndEditProfileData(cubit: cubit, state: state),
               ],
             ),
           );

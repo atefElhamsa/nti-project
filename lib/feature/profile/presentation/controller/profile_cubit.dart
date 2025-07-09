@@ -13,9 +13,17 @@ class ProfileCubit extends Cubit<ProfileState> {
   TextEditingController profileGenderController = TextEditingController();
   static ProfileCubit get(context) => BlocProvider.of(context);
   ProfileServices profileServices = ProfileServices();
-  bool isEdit = true;
-  changeEdit() {
-    isEdit = !isEdit;
+
+  Map<String, bool> isEditMap = {
+    "name": true,
+    "email": true,
+    "phone": true,
+    "nationalId": true,
+    "gender": true,
+  };
+
+  changeEdit({required String key}) {
+    isEditMap[key] = !isEditMap[key]!;
     emit(EditState());
     getProfileCubit();
   }
@@ -33,7 +41,18 @@ class ProfileCubit extends Cubit<ProfileState> {
   updateProfileCubit({required String key, required String value}) {
     emit(ProfileLoading());
     profileServices.updateProfile(key: key, value: value);
-    isEdit = true;
+    isEditMap[key] = true;
     getProfileCubit();
+  }
+
+  deleteProfileCubit() async {
+    emit(ProfileLoading());
+    try {
+      final response = await profileServices.deleteProfile();
+      print(response.data);
+      emit(DeleteProfileSuccess(message: "Profile Deleted Successfully"));
+    } catch (e) {
+      emit(DeleteProfileFailure(message: e.toString()));
+    }
   }
 }

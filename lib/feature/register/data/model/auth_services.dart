@@ -46,7 +46,8 @@ class AuthServices {
       );
       var data = response.data;
       var model = ResponseModel.fromJson(data);
-      CashHelper.saveData(key: "token", value: model.profileModel.token);
+      await CashHelper.saveData(key: "token", value: model.profileModel.token);
+      await CashHelper.saveData(key: "email", value: model.profileModel.email);
       return model;
     } on DioException catch (e) {
       if (e.response != null) {

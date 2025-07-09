@@ -24,4 +24,15 @@ class ProfileServices {
       },
     );
   }
+
+  deleteProfile() async {
+    final response = await dio.delete(
+      "https://elwekala.onrender.com/user/delete",
+      data: {
+        "token": CashHelper.getData(key: "token"),
+        "email": CashHelper.getData(key: "email"),
+      },
+    );
+    print(response);
+  }
 }
